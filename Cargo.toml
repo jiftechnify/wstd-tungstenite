@@ -1,6 +1,6 @@
 [package]
 name = "wstd-tungstenite"
-description = "WebSocket support for wstd, via tungstenite"
+description = "WebSocket support for wstd, powered by tungstenite"
 categories = ["web-programming::websocket", "network-programming", "wasm"]
 keywords = ["websocket", "webassembly"]
 authors = ["Takumi Fujiwara <jiftech.stlfy@gmail.com>"]
