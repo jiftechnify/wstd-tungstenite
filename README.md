@@ -2,6 +2,10 @@
 
 Async WebSocket support for Wasm / WASI 0.2 applications on top of [wstd].
 
+[![Crates.io](https://img.shields.io/crates/v/wstd-tungstenite)](https://crates.io/crates/wstd-tungstenite)
+[![Docs.rs](https://img.shields.io/docsrs/wstd-tungstenite)](https://docs.rs/wstd-tungstenite)
+[![MIT Licensed](https://img.shields.io/crates/l/wstd-tungstenite)](./LICENSE)
+
 [wstd]: https://github.com/bytecodealliance/wstd
 
 ## Installation
