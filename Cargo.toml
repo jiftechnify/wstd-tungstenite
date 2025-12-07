@@ -1,0 +1,13 @@
+[package]
+name = "wstd-tungstenite"
+version = "0.1.0"
+edition = "2024"
+
+[features]
+default = ["handshake"]
+handshake = ["tungstenite/handshake"]
+
+[dependencies]
+futures-util = { version = "0.3.31", default-features = false, features = ["sink", "std"] }
+tungstenite = { version = "0.28.0", default-features = false }
+wstd = { version = "0.6.3", default-features = false }
