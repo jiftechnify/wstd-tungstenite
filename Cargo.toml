@@ -5,6 +5,7 @@ categories = ["web-programming::websocket", "network-programming", "wasm"]
 keywords = ["websocket", "webassembly"]
 authors = ["Takumi Fujiwara <jiftech.stlfy@gmail.com>"]
 license = "MIT"
+readme = "README.md"
 homepage = "https://github.com/jiftechnify/wstd-tungstenite"
 repository = "https://github.com/jiftechnify/wstd-tungstenite"
 version = "0.1.0"
