@@ -1,5 +1,10 @@
 [package]
 name = "wstd-tungstenite"
+description = "WebSocket support for wstd, via tungstenite"
+categories = ["web-programming::websocket", "network-programming", "wasm"]
+keywords = ["websocket", "webassembly"]
+authors = ["Takumi Fujiwara <jiftech.stlfy@gmail.com>"]
+license = "MIT"
 version = "0.1.0"
 edition = "2024"
 
