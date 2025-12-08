@@ -13,7 +13,7 @@ Async WebSocket support for Wasm / WASI 0.2 applications on top of [wstd].
 ```bash
 cargo add wstd-tungstenite
 
-# Provides Stream/Sink trait
+# Provides extension methods for Stream/Sink
 # You may want to add this for ergonomic WebSocketStream operations!
 cargo add futures
 ```

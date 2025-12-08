@@ -19,7 +19,7 @@ pub(crate) struct AllowStd<S> {
     inner: S,
     // We have the problem that external read operations (i.e. the Stream impl)
     // can trigger both read (AsyncRead) and write (AsyncWrite) operations on
-    // the underyling stream. At the same time write operations (i.e. the Sink
+    // the underlying stream. At the same time write operations (i.e. the Sink
     // impl) can trigger write operations (AsyncWrite) too.
     // Both the Stream and the Sink can be used on two different tasks, but it
     // is required that AsyncRead and AsyncWrite are only ever used by a single
@@ -81,7 +81,7 @@ impl<S> AllowStd<S> {
     // impl on the WebSocketStream.
     // Reading can also cause writes to happen, e.g. in case of Message::Ping handling.
     //
-    // Write: this is only supposde to be called by write operations, i.e. the Sink impl on the
+    // Write: this is only supposed to be called by write operations, i.e. the Sink impl on the
     // WebSocketStream.
     pub(crate) fn set_waker(&self, kind: ContextWaker, waker: &task::Waker) {
         match kind {
