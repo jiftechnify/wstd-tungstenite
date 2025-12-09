@@ -16,6 +16,7 @@
 pub use tungstenite;
 
 mod compat;
+mod connect;
 mod handshake;
 
 use std::io::{Read, Write};
@@ -45,22 +46,8 @@ use tungstenite::{
     protocol::{Message, Role, WebSocket, WebSocketConfig},
 };
 
-// #[cfg(any(feature = "native-tls", feature = "__rustls-tls", feature = "connect"))]
-// pub use tls::Connector;
-// #[cfg(any(feature = "native-tls", feature = "__rustls-tls"))]
-// pub use tls::{client_async_tls, client_async_tls_with_config};
-
-// #[cfg(feature = "connect")]
-// pub use connect::{connect_async, connect_async_with_config};
-
-// #[cfg(all(
-//     any(feature = "native-tls", feature = "__rustls-tls"),
-//     feature = "connect"
-// ))]
-// pub use connect::connect_async_tls_with_config;
-
-// #[cfg(feature = "stream")]
-// pub use stream::MaybeTlsStream;
+#[cfg(feature = "connect")]
+pub use connect::{connect_async, connect_async_with_config};
 
 use tungstenite::protocol::CloseFrame;
 
@@ -398,47 +385,28 @@ where
 }
 
 /// Get a domain from an URL.
-// #[cfg(any(feature = "connect", feature = "native-tls", feature = "__rustls-tls"))]
-// #[inline]
-// fn domain(request: &tungstenite::handshake::client::Request) -> Result<String, WsError> {
-//     match request.uri().host() {
-//         // rustls expects IPv6 addresses without the surrounding [] brackets
-//         #[cfg(feature = "__rustls-tls")]
-//         Some(d) if d.starts_with('[') && d.ends_with(']') => Ok(d[1..d.len() - 1].to_string()),
-//         Some(d) => Ok(d.to_string()),
-//         None => Err(WsError::Url(tungstenite::error::UrlError::NoHostName)),
-//     }
-// }
+#[cfg(feature = "connect")]
+#[inline]
+fn domain(request: &tungstenite::handshake::client::Request) -> Result<String, WsError> {
+    match request.uri().host() {
+        Some(d) => Ok(d.to_string()),
+        None => Err(WsError::Url(tungstenite::error::UrlError::NoHostName)),
+    }
+}
 
 #[cfg(test)]
 mod tests {
-    // #[cfg(feature = "connect")]
-    // use crate::stream::MaybeTlsStream;
     use crate::{WebSocketStream, compat::AllowStd};
     use std::io::{Read, Write};
-    // #[cfg(feature = "connect")]
-    // use wstd::io::{AsyncReadExt, AsyncWriteExt};
 
     fn is_read<T: Read>() {}
     fn is_write<T: Write>() {}
-    // #[cfg(feature = "connect")]
-    // fn is_async_read<T: AsyncReadExt>() {}
-    // #[cfg(feature = "connect")]
-    // fn is_async_write<T: AsyncWriteExt>() {}
     fn is_unpin<T: Unpin>() {}
 
     #[test]
     fn web_socket_stream_has_traits() {
         is_read::<AllowStd<wstd::net::TcpStream>>();
         is_write::<AllowStd<wstd::net::TcpStream>>();
-
-        // #[cfg(feature = "connect")]
-        // is_async_read::<MaybeTlsStream<wstd::net::TcpStream>>();
-        // #[cfg(feature = "connect")]
-        // is_async_write::<MaybeTlsStream<wstd::net::TcpStream>>();
-
         is_unpin::<WebSocketStream<wstd::net::TcpStream>>();
-        // #[cfg(feature = "connect")]
-        // is_unpin::<WebSocketStream<MaybeTlsStream<wstd::net::TcpStream>>>();
     }
 }
