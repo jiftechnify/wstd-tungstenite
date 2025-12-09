@@ -16,6 +16,7 @@
 pub use tungstenite;
 
 mod compat;
+#[cfg(feature = "connect")]
 mod connect;
 mod handshake;
 
