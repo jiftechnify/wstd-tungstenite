@@ -18,16 +18,9 @@ use crate::{IntoClientRequest, WebSocketStream, client_async_with_config, domain
 /// URLs that start with `wss://` are not supported since `wstd` doesn't support TLS.
 ///
 /// ```no_run
-/// # use tungstenite::client::IntoClientRequest;
-///
-/// # async fn test() {
-/// use tungstenite::http::{Method, Request};
 /// use wstd_tungstenite::connect_async;
 ///
-/// let mut request = "ws://localhost:8080".into_client_request().unwrap();
-///
-/// let (stream, response) = connect_async(request).await.unwrap();
-/// # }
+/// let (stream, response) = connect_async("ws://127.0.0.1:8080").await.unwrap();
 /// ```
 pub async fn connect_async<R>(request: R) -> Result<(WebSocketStream<TcpStream>, Response), Error>
 where
@@ -37,9 +30,7 @@ where
 }
 
 /// The same as `connect_async()` but the one can specify a websocket configuration.
-/// Please refer to `connect_async()` for more details. `disable_nagle` specifies if
-/// the Nagle's algorithm must be disabled, i.e. `set_nodelay(true)`. If you don't know
-/// what the Nagle's algorithm is, better leave it set to `false`.
+/// Please refer to `connect_async()` for more details.
 pub async fn connect_async_with_config<R>(
     request: R,
     config: Option<WebSocketConfig>,
