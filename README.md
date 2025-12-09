@@ -20,7 +20,7 @@ cargo add futures
 
 ## Example
 
-Minimal WebSocket server:
+Minimal WebSocket echo server:
 
 ```rust
 // src/main.rs
@@ -47,7 +47,7 @@ async fn main() -> io::Result<()> {
             while let Some(msg) = ws.next().await {
                 if let Ok(msg) = msg {
                     println!("received: {msg}");
-                    if ws.send(Message::Text("hello!".into())).await.is_err() {
+                    if msg.is_text() && ws.send(msg).await.is_err() {
                         break;
                     }
                 } else {
